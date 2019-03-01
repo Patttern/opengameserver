@@ -1,0 +1,29 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%-15t] %-40.40logger{39} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROTATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/gameserver.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/gameserver.%d{yyyy-MM-dd}.log.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1GB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%-15t] %-40.40logger{39} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${log.level:-info}">
+        <appender-ref ref="ROTATION_LOG"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

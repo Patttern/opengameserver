@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.patttern.opengameserver</groupId>
+    <artifactId>opengameserver</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>OGS project</name>
+
+    <properties>
+        <!-- Java settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+
+        <!-- Repository -->
+        <repo.name>opengameserver</repo.name>
+        <mavenrepo.readurl>file://${user.home}/.m2/${repo.name}</mavenrepo.readurl>
+        <mavenrepo.writeurl>file://${user.home}/.m2/${repo.name}</mavenrepo.writeurl>
+
+        <!-- Core -->
+        <spring-boot.version>2.1.3.RELEASE</spring-boot.version>
+        <netty.version>4.1.33.Final</netty.version>
+
+        <!-- Common -->
+        <commons-codec.version>1.12</commons-codec.version>
+        <commons-io.version>2.6</commons-io.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <logstash-encoder.version>5.3</logstash-encoder.version>
+
+        <!-- Compiler -->
+        <maven-compiler.version>3.8.0</maven-compiler.version>
+        <maven-source.version>3.0.1</maven-source.version>
+        <multi-module.version>2.0.2</multi-module.version>
+    </properties>
+
+    <modules>
+        <module>api</module>
+        <module>client</module>
+        <module>gameserver</module>
+        <module>loginserver</module>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>release</id>
+            <url>${mavenrepo.readurl}</url>
+        </repository>
+        <repository>
+            <id>snapshot</id>
+            <url>${mavenrepo.readurl}</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>${repo.name}</id>
+            <url>${mavenrepo.writeurl}</url>
+        </repository>
+        <snapshotRepository>
+            <id>${repo.name}</id>
+            <url>${mavenrepo.writeurl}</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>ch.sourcepond.maven.plugins</groupId>
+                <artifactId>multi-module-release-maven-plugin</artifactId>
+                <version>${multi-module.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
